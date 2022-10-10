@@ -3,13 +3,12 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
 
-from lib.dist import Normal
+from beta_tcvae.dist import Normal
 
 eps = 1e-8
 
 
 class FactorialNormalizingFlow(nn.Module):
-
     def __init__(self, dim, nsteps):
         super(FactorialNormalizingFlow, self).__init__()
         self.dim = dim
@@ -29,7 +28,7 @@ class FactorialNormalizingFlow(nn.Module):
         raise NotImplementedError
 
     def log_density(self, y, params=None):
-        assert(y.size(1) == self.dim)
+        assert y.size(1) == self.dim
         x = y
         logdetgrad = Variable(torch.zeros(y.size()).type_as(y.data))
         for i in range(self.nsteps):
@@ -38,7 +37,9 @@ class FactorialNormalizingFlow(nn.Module):
             b = self.bias[i][None]
             act = F.tanh(x * w + b)
             x = x + u * act
-            logdetgrad = logdetgrad + torch.log(torch.abs(1 + u * (1 - act.pow(2)) * w) + eps)
+            logdetgrad = logdetgrad + torch.log(
+                torch.abs(1 + u * (1 - act.pow(2)) * w) + eps
+            )
         logpx = self.x_dist.log_density(x)
         logpy = logpx + logdetgrad
         return logpy

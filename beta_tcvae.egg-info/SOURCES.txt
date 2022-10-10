@@ -1,0 +1,17 @@
+LICENSE
+README.md
+setup.py
+beta_tcvae/__init__.py
+beta_tcvae/datasets.py
+beta_tcvae/disentanglement_metrics.py
+beta_tcvae/dist.py
+beta_tcvae/elbo_decomposition.py
+beta_tcvae/flows.py
+beta_tcvae/functions.py
+beta_tcvae/plot_latent_vs_true.py
+beta_tcvae/utils.py
+beta_tcvae/vae_quant.py
+beta_tcvae.egg-info/PKG-INFO
+beta_tcvae.egg-info/SOURCES.txt
+beta_tcvae.egg-info/dependency_links.txt
+beta_tcvae.egg-info/top_level.txt
